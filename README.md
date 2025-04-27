@@ -8,7 +8,7 @@ A simple system for:
 
 ## Features
 - **Login:**  
-  Access the page and enter the token (`1qazxsw2`) to log in.
+  Access the page and enter the token `LOGIN_PASSWORD` to log in.
 
 - **Logout:**  
   Click the `Logout` button to end the session.
