@@ -1,0 +1,17 @@
+<?php
+date_default_timezone_set('Europe/Warsaw');
+$html_content = file_get_contents('php://input');
+
+include "functions.php";
+include "config.php";
+
+$headers = apache_request_headers();
+
+if (isset($headers['Authorization']) && $headers['Authorization'] === AUTH_TOKEN) {
+    echo save_message($html_content, $headers);
+} else {
+    echo "Invalid token.";
+    $headers['Mode'] = "error";
+    save_message("Unauthorized attempt to send a message", $headers);
+}
+?>

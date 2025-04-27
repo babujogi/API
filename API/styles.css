@@ -1,0 +1,108 @@
+/* General styles */
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+/* Header */
+#header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+/* Logout button */
+#logout_button {
+    background-color: #28a745;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+#logout_button:hover {
+    background-color: #218838;
+}
+
+/* Main content */
+#main_content {
+    text-align: center;
+}
+
+/* Stop button */
+#stop_button {
+    display: inline-block;
+    background-color: #dc3545;
+    padding: 10px 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+#stop_button:hover {
+    background-color: #c82333;
+}
+
+/* Message text container */
+#text-container {
+    white-space: pre-wrap;
+    font-family: 'Courier New', monospace;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: left;
+}
+
+/* Login form */
+#login_container {
+    background-color: black;
+    padding: 30px;
+    border-radius: 10px;
+    width: 300px;
+    margin: 100px auto;
+    text-align: center;
+}
+
+#login_container input[type="password"],
+#login_container input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+#login_container input[type="submit"] {
+    background-color: #7dc85b;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#login_container input[type="submit"]:hover {
+    background-color: #68a944;
+}
+
+/* Notification classes */
+.notification {
+    color: green;
+    font-weight: bold;
+}
+
+.important {
+    color: yellow;
+    font-weight: bold;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}

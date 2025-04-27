@@ -1,0 +1,103 @@
+<?php
+include "functions.php";
+include "config.php";
+
+date_default_timezone_set('Europe/Warsaw');
+session_start();
+?>
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<?php
+if (isset($_GET["logout"])) {
+    session_destroy();
+    header("Location: index.html");
+    exit();
+}
+
+if (isset($_GET["login"])) {
+    if (isset($_POST["token"]) && $_POST["token"] === LOGIN_PASSWORD) {
+        session_regenerate_id(true);
+        $_SESSION["isLogged"] = true;
+        header("Location: index.html");
+        exit();
+    } else {
+        echo '<script>alert("Bad token");</script>';
+    }
+}
+
+if (isset($_SESSION["isLogged"])) {
+    $date = date('Y-m-d');
+    if (isset($_GET['date']) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $_GET['date'])) {
+        $date = $_GET['date'];
+    }
+?>
+<body>
+    <div id="header">
+        <a id="logout_button" href="index.html?logout">Logout</a>
+    </div>
+
+    <div id="main_content">
+        <p>Do you want to see a special date log? <br>Type <code>?date=Y-m-d</code> in the URL.</p>
+        <p>Refresh in <span id="timer">30</span> seconds</p>
+        <div id="stop_button">Stop Refresh</div>
+
+        <h2>Message:</h2>
+<?php
+        $file = "log/{$date}-message.log";
+        if (file_exists($file)) {
+            echo '<pre id="text-container">';
+            echo highlight_keywords(file_get_contents($file));
+            echo '</pre>';
+        } else {
+            echo '<p class="error">Log file not found.</p>';
+        }
+?>
+    </div>
+<?php
+} else {
+?>
+    <div id="login_container">
+        <form action="index.html?login" method="post">
+            <input type="password" name="token" placeholder="Enter token" required>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+<?php
+}
+?>
+</body>
+
+<script>
+$(document).ready(function() {
+    let timer = 30;
+
+    function updateTimer() {
+        $("#timer").text(timer);
+    }
+
+    let countdown = setInterval(function() {
+        if (timer === 0) {
+            window.location.href = "index.html";
+            clearInterval(countdown);
+        } else {
+            timer--;
+            updateTimer();
+        }
+    }, 1000);
+
+    var pathname = window.location.search;
+    if (pathname.includes("date")) {
+        clearInterval(countdown);
+        $("#timer").html("Stopped");
+    }
+
+    $("#stop_button").click(function() {
+        clearInterval(countdown);
+        $("#timer").html("Stopped");
+    });
+});
+</script>
